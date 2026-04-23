@@ -12,4 +12,4 @@ datos <- read_sheet(url, sheet = 2, skip = 1)
 
 #Veo la estructura del dataset
 str(datos)
-save(datos, file = "data.RData")
+
