@@ -9,7 +9,7 @@ attach(datos)
 ######################
 # Renombrar columnas #
 ######################
-datos_recortados <- datos %>% select("Ranking","GIRAI","Dimensión mejor puntuada","sec_ag","areas_ane",
+datos_recortados <- datos %>% select("Ranking","GIRAI", "GIRAI_region","Dimensión mejor puntuada","sec_ag","areas_ane",
                              "p70_sesgo",	"p70_infancia",	"p70_divers",	"p70_datpers"	,"p70_genero",
                              "p70_suphum",	"p70_laboral",	"p70_segu",	"p70_transp")
 
