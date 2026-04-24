@@ -15,10 +15,13 @@ datos_recortados <- datos %>% select("Ranking","GIRAI", "GIRAI_region","Dimensi�
 
 datos_recortados <- datos_recortados %>% 
   mutate(
-    Dimensión mejor puntuada = recode(Dimensión mejor puntuada,
+    `Dimensión mejor puntuada` = recode(`Dimensión mejor puntuada`,
                                       "cap" = "Capacidades en IA",
                                       "gob" = "Gobernanza de la IA",
-                                      "ddhh" = "IA y Derechos Humanos")
+                                      "ddhh" = "IA y Derechos Humanos"),
+    areas_int = cut(areas_ane,
+                    breaks = seq(from=0, to=20, by = 2),
+                    right = F)
   )
 ###########################################
 # Seleccionar un subconjunto de registros #
