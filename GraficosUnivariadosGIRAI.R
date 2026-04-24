@@ -16,12 +16,12 @@ attach(datos_recortados)
 ############################
 
 datos_recortados %>%
-  
+ 
   ggplot() + 
   
-  #aes(x = Dimensión mejor puntuada) + # Frecuencias absolutas
+  #aes(x = `Dimensión mejor puntuada`) + # Frecuencias absolutas
   aes(x = reorder(`Dimensión mejor puntuada`, `Dimensión mejor puntuada`, function(x) -length(x))) + # Ordenar según frecuencia
-  #aes(x = Dimensión mejor puntuada, y = ..count.. / sum(..count..)) + # Porcentajes
+  #aes(x = `Dimensión mejor puntuada`, y = ..count.. / sum(..count..)) + # Porcentajes
   # aes(x = reorder(tiempo, tiempo, function(x) -length(x)), 
   #		y = ..count.. / sum(..count..)) +  # Porcentajes ordenados según frecuencia
   #scale_y_continuous(labels = scales::percent) +    # Eje para porcentajes
@@ -81,9 +81,9 @@ ggplot(tabla_p70) +
   ) +
   labs(
     y = "Cantidad de Países",
-    x = "Área temática"
+    x = "Acción gubernamental"
   ) +
-  ggtitle("Cantidad de países por 70 puntos superados según área temática") +
+  ggtitle("Cantidad de países que presentan cada acción gubernamental") +
   coord_flip() +
   theme_classic()
 
@@ -98,7 +98,7 @@ datos_recortados %>%
                               "Muy bajo", "Bajo", "Medio", "Alto", "Muy alto")) %>%
   ggplot() + 
   
-  #aes(x = Dimensión mejor puntuada) + # Frecuencias absolutas
+  #aes(x = `Dimensión mejor puntuada`) + # Frecuencias absolutas
   aes(x = reorder(sec_ag, sec_ag, function(x) -length(x))) + # Ordenar según frecuencia
   aes(x = sec_ag, y = ..count.. / sum(..count..)) + # Porcentajes
   # aes(x = reorder(tiempo, tiempo, function(x) -length(x)), 
@@ -137,7 +137,7 @@ tabla_areas <- tabyl(areas_int) %>%
     "% acumulado" = cumsum(percent)
   ) %>% 
   rename(
-    "Areas afectadas por actores no gubernamentales" = areas_int,
+    "Cant. de Areas afectadas por ane" = areas_int,
     "Cant. Paises" = n, 
     "% Paises" = percent
   ) %>% 
@@ -146,8 +146,10 @@ tabla_areas <- tabyl(areas_int) %>%
     `% acumulado` = scales::percent(`% acumulado`, accuracy = 0.1)
   )
 
-#tabla_areas
-
+# tabla_areas
+# pdf("tabla_altura.pdf", width = 10, height = 6)
+# grid.table(tabla_areas)
+# dev.off()
 
 
 
@@ -155,27 +157,17 @@ tabla_areas <- tabyl(areas_int) %>%
 # Histograma #
 ##############
 
-# Frecuencias absolutas
-# ggplot(datos_recortados) +
-#   aes(x = GIRAI) +
-#   geom_histogram(fill = "lightgray", col = "black", 
-#                  
-#                  breaks = seq(0, 100, 10)) + # Límites de intervalos
-#   
-#   scale_x_continuous(breaks = seq(0, 100, 10)) + #Marcas del eje
-#   
-#   labs(x = "GIRAI", y = "Cantidad de paises")
-
 # Frecuencias relativas
 
 mediana_girai <- median(datos_recortados$GIRAI, na.rm = TRUE)
 
 ggplot(datos_recortados) +
   aes(x = GIRAI, y = ..count../sum(..count..)) +
-  geom_histogram(fill = "lightgreen", col = "black", 
+  geom_histogram(fill = "lightgray", col = "black", 
                  breaks = seq(0, 100, 10)) +
   geom_vline(xintercept = mediana_girai, linetype = "dashed", linewidth = 1) +
   scale_x_continuous(breaks = seq(0, 100, 10)) +
   scale_y_continuous(labels = scales::percent) +
-  labs(x = "GIRAI", y = "Porcentaje de Paises") +
-ggtitle("Porcentaje de Paises segun el valor de GIRAI") 
+  labs(x = "GIRAI", y = "Porcentaje de Paises")
+
+
